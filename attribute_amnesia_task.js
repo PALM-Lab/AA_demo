@@ -14,7 +14,7 @@ var jsPsych = initJsPsych({
 timeline = [];
 
 // DEFINE EXPERIMENT VARIABLES
-const n_trials = 50; // Number of trials in the experiment
+const n_trials = 30; // Number of trials in the experiment
 const n_items = 4; // Number of items in the screen
 const canvas_width = 1000; // Width of the canvas
 const canvas_height = 600; // Height of the canvas
@@ -23,7 +23,7 @@ const canvas_height = 600; // Height of the canvas
 // Define an array of letters and an array of numbers
 var letters = ['A', 'B', 'C', 'D', 'F', 'H', 'J', 'K', 'L', 'N', 'P', 'R', 'T', 'V', 'X', 'Y']; // Based on Chen and Wyble (2016)
 const numbers = ['2', '3', '4', '5', '6', '7', '8', '9'] // Based on Chen and Wyble (2016)
-const colors = ['red', 'gold', 'blue', 'magenta']
+const colors = ['red', 'orange', 'blue', 'magenta']
 
 // Set item locations
 const item_locations = [
@@ -96,10 +96,26 @@ for (var t = 0; t < n_trials; t++) {
     }
 
     var trial_start = {
-        type: jsPsychHtmlKeyboardResponse,
-        stimulus: '',
+        type: jsPsychCanvasKeyboardResponse,
+        canvas_size: [canvas_height, canvas_width],
+        stimulus: draw_fixation,
         choices: "NO_KEYS",
         trial_duration: trial_time
+    }
+
+    function draw_fixation(c) {
+        var ctx = c.getContext("2d")
+        // Add fixation cross
+        ctx.font = "50px Arial"
+        ctx.fillStyle = 'black'
+        ctx.fillText('+', canvas_width / 2, canvas_height / 2)
+
+        for (var i = 0; i < n_items; i++) {
+            ctx.beginPath();
+            ctx.arc(item_locations[i][0]+20, item_locations[i][1]-20, 20, 0, 2 * Math.PI);
+            ctx.stroke();
+        }
+
     }
 
     timeline.push(trial_start)
@@ -109,7 +125,7 @@ for (var t = 0; t < n_trials; t++) {
         canvas_size: [canvas_height, canvas_width],
         stimulus: draw_trial,
         choices: "NO_KEYS",
-        trial_duration: 400,
+        trial_duration: 250,
         on_finish: function (data) {
             if (jsPsych.pluginAPI.compareKeys(data.response, null)) {
                 data.trial_letter = trial_letter
@@ -134,6 +150,9 @@ for (var t = 0; t < n_trials; t++) {
             ctx.fillStyle = shuffle_colors[i]
             ctx.fillText(shuffled_stim[i], item_locations[i][0], item_locations[i][1])
         }
+        // Add fixation cross
+        ctx.fillStyle = 'black'
+        ctx.fillText('+', canvas_width / 2, canvas_height / 2)
     }
 
     timeline.push(trial_stim);
@@ -152,8 +171,16 @@ for (var t = 0; t < n_trials; t++) {
         ctx.font = "50px Arial"
 
         for (var i = 0; i < n_items; i++) {
+            ctx.fillStyle = "red";
+            ctx.fillRect(item_locations[i][0], item_locations[i][1] - 50, 10, 60);
+            ctx.fillStyle = "orange";
+            ctx.fillRect(item_locations[i][0], item_locations[i][1] - 50, 60, 10);
+            ctx.fillStyle = "blue";
+            ctx.fillRect(item_locations[i][0] + 50, item_locations[i][1] - 50, 10, 60);
+            ctx.fillStyle = "yellow";
+            ctx.fillRect(item_locations[i][0], item_locations[i][1], 60, 10);
             ctx.fillStyle = "black"
-            ctx.fillText("#", item_locations[i][0], item_locations[i][1])
+            ctx.fillText("@", item_locations[i][0], item_locations[i][1])
         }
     }
 
@@ -192,7 +219,7 @@ for (var t = 0; t < n_trials; t++) {
         ctx.fillText("1", cue_locations[0][0] + 15, cue_locations[0][1] + 40)
 
         // Yellow square
-        ctx.fillStyle = "gold";
+        ctx.fillStyle = "orange";
         ctx.fillRect(cue_locations[1][0], cue_locations[1][1], 50, 50)
         ctx.fillStyle = "white"
         ctx.fillText("2", cue_locations[1][0] + 15, cue_locations[1][1] + 40)
@@ -229,6 +256,8 @@ for (var t = 0; t < n_trials; t++) {
         },
     }
 
+    timeline.push(ITI)
+
     // SURPRISE TRIAL!
     var surprise_trial = {
         type: jsPsychCanvasKeyboardResponse,
@@ -264,6 +293,7 @@ for (var t = 0; t < n_trials; t++) {
 
     if (t == n_trials - 1) {
         timeline.push(surprise_trial)
+        timeline.push(response)
     }
 }
 

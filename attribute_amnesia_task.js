@@ -264,9 +264,9 @@ for (var t = 0; t < n_trials; t++) {
         canvas_size: [canvas_height, canvas_width],
         stimulus: draw_surprise,
         prompt: "This is a surprise memory test! Here, we test the identity of the target letter. Press a corresponding number to indicate the 'identity' of the target letter.",
-        choices: ['1', '2', '3', '4'],
+        choices: ['5', '6', '7', '8'],
         on_finish: function (data) {
-            response = Number(data.response)
+            response = Number(data.response)+4
             correct = correct_letter == shuffled_surprise_letters[response - 1]
             data.correct = correct
         }

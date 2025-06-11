@@ -14,7 +14,7 @@ var jsPsych = initJsPsych({
 timeline = [];
 
 // DEFINE EXPERIMENT VARIABLES
-const n_trials = 30; // Number of trials in the experiment
+const n_trials = 40; // Number of trials in the experiment
 const n_items = 4; // Number of items in the screen
 const canvas_width = 1000; // Width of the canvas
 const canvas_height = 600; // Height of the canvas
@@ -171,16 +171,16 @@ for (var t = 0; t < n_trials; t++) {
         ctx.font = "50px Arial"
 
         for (var i = 0; i < n_items; i++) {
-            ctx.fillStyle = "red";
-            ctx.fillRect(item_locations[i][0], item_locations[i][1] - 50, 10, 60);
-            ctx.fillStyle = "orange";
-            ctx.fillRect(item_locations[i][0], item_locations[i][1] - 50, 60, 10);
-            ctx.fillStyle = "blue";
-            ctx.fillRect(item_locations[i][0] + 50, item_locations[i][1] - 50, 10, 60);
-            ctx.fillStyle = "yellow";
-            ctx.fillRect(item_locations[i][0], item_locations[i][1], 60, 10);
             ctx.fillStyle = "black"
             ctx.fillText("@", item_locations[i][0], item_locations[i][1])
+            ctx.fillStyle = "red";
+            ctx.fillRect(item_locations[i][0], item_locations[i][1] - 50, 10, 70);
+            ctx.fillStyle = "orange";
+            ctx.fillRect(item_locations[i][0], item_locations[i][1] - 50, 70, 10);
+            ctx.fillStyle = "blue";
+            ctx.fillRect(item_locations[i][0] + 50, item_locations[i][1] - 50, 10, 70);
+            ctx.fillStyle = "yellow";
+            ctx.fillRect(item_locations[i][0], item_locations[i][1], 70, 10);
         }
     }
 

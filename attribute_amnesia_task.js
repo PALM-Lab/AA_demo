@@ -14,7 +14,7 @@ var jsPsych = initJsPsych({
 timeline = [];
 
 // DEFINE EXPERIMENT VARIABLES
-const n_trials = 40; // Number of trials in the experiment
+const n_trials = 16; // Number of trials in the experiment
 const n_items = 4; // Number of items in the screen
 const canvas_width = 1000; // Width of the canvas
 const canvas_height = 600; // Height of the canvas
@@ -174,13 +174,13 @@ for (var t = 0; t < n_trials; t++) {
             ctx.fillStyle = "black"
             ctx.fillText("@", item_locations[i][0], item_locations[i][1])
             ctx.fillStyle = "red";
-            ctx.fillRect(item_locations[i][0], item_locations[i][1] - 50, 10, 70);
+            ctx.fillRect(item_locations[i][0], item_locations[i][1] - 50, 10, 50);
             ctx.fillStyle = "orange";
-            ctx.fillRect(item_locations[i][0], item_locations[i][1] - 50, 70, 10);
+            ctx.fillRect(item_locations[i][0], item_locations[i][1] - 50, 50, 10);
             ctx.fillStyle = "blue";
-            ctx.fillRect(item_locations[i][0] + 50, item_locations[i][1] - 50, 10, 70);
+            ctx.fillRect(item_locations[i][0] + 50, item_locations[i][1] - 50, 10, 50);
             ctx.fillStyle = "yellow";
-            ctx.fillRect(item_locations[i][0], item_locations[i][1], 70, 10);
+            ctx.fillRect(item_locations[i][0], item_locations[i][1], 50, 10);
         }
     }
 
@@ -190,7 +190,7 @@ for (var t = 0; t < n_trials; t++) {
         type: jsPsychHtmlKeyboardResponse,
         stimulus: '',
         choices: "NO_KEYS",
-        trial_duration: 500,
+        trial_duration: 400,
         on_finish: function (data) {
             var trial_letter = []
             trial_letter = jsPsych.data.getLastTrialData().values()[0].trial_letter

@@ -286,7 +286,7 @@ for (var t = 0; t < n_trials; t++) {
             ctx.font = "40px Arial"
             ctx.fillStyle = "black";
             ctx.fillText(shuffled_surprise_letters[i], canvas_width / 2 + ((i - 1.5) * 100), canvas_height / 2)
-            ctx.fillText(i + 1, canvas_width / 2 + ((i - 1.5) * 100), canvas_height / 2 + 100)
+            ctx.fillText(i + 5, canvas_width / 2 + ((i - 1.5) * 100), canvas_height / 2 + 100)
         }
 
     }
